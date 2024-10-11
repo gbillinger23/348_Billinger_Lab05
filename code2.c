@@ -8,14 +8,9 @@
 #define SIZE 5
 
 void addMatrices(const int m1[SIZE][SIZE], const int m2[SIZE][SIZE]);
-
 void multiplyMatrices(const int m1[SIZE][SIZE], const int m2[SIZE][SIZE]);
-
 void transposeMatrix(const int m[SIZE][SIZE]);
-
 void printMatrix(const int m[SIZE][SIZE]);
-
-void checkInput(int i);
 
 int main(){
 	int m1[SIZE][SIZE] = {
@@ -33,52 +28,27 @@ int main(){
 		{5, 4, 3, 2, 1}
 	};
 
-	while(1){
-		int num = 0;
-		printf("\n1. Add matrices\n2. Multiply matrices\n3. Transpose a matrix.\n4. Print a matrix.\n5. Exit program\n");
-		printf("Select an option for the matrix (1-5): ");
-		scanf("%d", &num);
-		getchar();
+	printf("\n");
+	addMatrices(m1, m2);
+	printf("\n");
+	multiplyMatrices(m1, m2);
+	printf("\n");
+	transposeMatrix(m1);
+	printf("\n");
+	printMatrix(m1);
 
-		while (num < 1 || num > 5){
-			printf("Invalid selection. Select again (1-5): ");
-			scanf("%d", &num);
-			getchar();
-		}
-
-		if (num == 1){
-			printf("\n");
-			addMatrices(m1, m2);
-		}
-		else if (num == 2){
-			printf("\n");
-			multiplyMatrices(m1, m2);
-		}
-		else if (num == 3){
-			printf("\n");
-			transposeMatrix(m1);
-		}
-		else if (num == 4){
-			printf("\n");
-			printMatrix(m1);
-		}
-		else if (num == 5){
-			break;
-		}
-	}
 	return 0;
 }
 
 void addMatrices(const int m1[SIZE][SIZE], const int m2[SIZE][SIZE]){
-	int mSum[SIZE][SIZE];
+	int mSum[SIZE][SIZE] = {0}; // Initialize sum array.
 	// To add we just iterate over each row and column.
 	for (int i = 0; i < SIZE; i++){
 		for (int j = 0; j < SIZE; j++){
 			mSum[i][j] = m1[i][j] + m2[i][j];
-			printf("%d ", mSum[i][j]);
 		}
-		printf("\n");
 	}
+	printMatrix(mSum);
 }
 
 void multiplyMatrices(const int m1[SIZE][SIZE], const int m2[SIZE][SIZE]){
@@ -89,27 +59,26 @@ void multiplyMatrices(const int m1[SIZE][SIZE], const int m2[SIZE][SIZE]){
 			for (int k = 0; k < SIZE; k++){
 				mProduct[i][j] += m1[i][k] * m2[k][j]; // Dot product.
 			}
-			printf("%d ", mProduct[i][j]); // Print the number.
 		}
-		printf("\n"); // This will print when a row is complete.
 	}
+	printMatrix(mProduct);
 }
 
 void transposeMatrix(const int m[SIZE][SIZE]){
 	int mTrans[SIZE][SIZE];
 	for (int i = 0; i < SIZE; i++){
 		for (int j = 0; j < SIZE; j++){
-			mTrans[j][i] = m[i][j];
+			mTrans[j][i] = m[i][j]; // We iterate down the rows for the transposed matrix instead of columns.
 		}
 	}
 	printMatrix(mTrans);
 }
 
 void printMatrix(const int m[SIZE][SIZE]){
-	for (int i = 0; i < SIZE; i++){
+	for (int i = 0; i < SIZE; i++){ 
 		for (int j = 0; j < SIZE; j++){
-			printf("%d ", m[i][j]);
+			printf("%d ", m[i][j]); // Print every number in a row.
 		}
-	printf("\n");
+	printf("\n"); // Move to the next row to print.
 	}
 }
